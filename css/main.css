@@ -138,6 +138,28 @@ main {
     display: block;
 }
 
+/* ── Header mobile fixes ── */
+/* Hide brand text on very small screens to prevent overlap */
+@media (max-width: 480px) {
+    header .flex.items-center .font-bold {
+        display: none;
+    }
+}
+
+/* Tighten header height on mobile */
+@media (max-width: 767px) {
+    header {
+        min-height: 56px;
+    }
+    main {
+        padding-top: 56px;
+    }
+    #mobile-menu {
+        top: 56px !important;
+        max-height: calc(100vh - 56px) !important;
+    }
+}
+
 /* (mobile dropdown overrides handled by .mobile-* classes below) */
 
 /* ══════════════════════════════════════════
