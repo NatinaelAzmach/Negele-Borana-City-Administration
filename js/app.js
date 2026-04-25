@@ -61,47 +61,68 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function initMobileMenu() {
         const menuBtn = document.getElementById('mobile-menu-button');
-        const closeBtn = document.getElementById('close-mobile-menu');
         const mobileMenu = document.getElementById('mobile-menu');
 
         if (!menuBtn || !mobileMenu) return;
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        // Toggle the slide-down panel
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden', !isHidden);
+            // Swap hamburger ↔ X icon
+            menuBtn.innerHTML = isHidden
+                ? `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                   </svg>`
+                : `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                   </svg>`;
         });
 
-        // Close logic is inside the button which might be dynamically loaded or static
+        // Close when clicking outside
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#close-mobile-menu')) {
+            if (!mobileMenu.classList.contains('hidden') &&
+                !mobileMenu.contains(e.target) &&
+                !menuBtn.contains(e.target)) {
                 mobileMenu.classList.add('hidden');
-                document.body.style.overflow = '';
+                menuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>`;
+            }
+        });
+
+        // Inline dropdown toggles inside the mobile menu
+        mobileMenu.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.mobile-dropdown-toggle');
+            if (!toggle) return;
+            e.preventDefault();
+
+            const parent = toggle.closest('.mobile-dropdown');
+            const submenu = parent.querySelector('.mobile-dropdown-menu');
+            const isOpen = parent.classList.contains('open');
+
+            // Close all open mobile dropdowns first
+            mobileMenu.querySelectorAll('.mobile-dropdown.open').forEach(d => {
+                d.classList.remove('open');
+                d.querySelector('.mobile-dropdown-menu').classList.add('hidden');
+            });
+
+            // Open the clicked one if it was closed
+            if (!isOpen) {
+                parent.classList.add('open');
+                submenu.classList.remove('hidden');
             }
         });
     }
 
     /**
-     * Dropdown Menu Logic
+     * Dropdown Menu Logic (desktop — handled by CSS :hover; mobile handled in initMobileMenu)
      */
     function initDropdowns() {
-        // Use event delegation for dropdowns since they are critical
+        // Close desktop dropdowns on outside click (they use CSS hover, but .active class is a fallback)
         document.addEventListener('click', function(e) {
-            const toggle = e.target.closest('.dropdown-toggle');
-            if (toggle) {
-                const isMobile = window.innerWidth < 768 || toggle.closest('#mobile-menu');
-                if (isMobile) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const parent = toggle.closest('.dropdown');
-                    parent.classList.toggle('active');
-                    
-                    // Close others
-                    document.querySelectorAll('.dropdown.active').forEach(other => {
-                        if (other !== parent) other.classList.remove('active');
-                    });
-                }
-            } else {
-                // Close all on outside click
+            if (!e.target.closest('.dropdown')) {
                 document.querySelectorAll('.dropdown.active').forEach(d => d.classList.remove('active'));
             }
         });

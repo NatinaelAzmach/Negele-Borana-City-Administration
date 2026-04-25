@@ -64,43 +64,49 @@
 </header>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
-    <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
-        <i class="fas fa-times"></i>
-    </button>
-    <nav class="flex flex-col items-center space-y-8 w-full">
-        <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">
+<div id="mobile-menu" class="fixed top-0 left-0 right-0 bg-neutral-light dark:bg-gray-900 z-40 hidden shadow-lg" style="top: 72px; max-height: calc(100vh - 72px); overflow-y: auto;">
+    <nav class="flex flex-col w-full">
+        <a href="index.html" class="mobile-nav-link">
             HOME
         </a>
-        <div class="dropdown w-full text-center">
-            <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
-                ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
-            </a>
-            <div class="dropdown-menu">
-                <a href="history.html">History</a>
-                <a href="people.html">People</a>
-                <a href="geography.html">Geography</a>
-                <a href="city-administration.html">City Administration</a>
+
+        <!-- ABOUT dropdown -->
+        <div class="mobile-dropdown">
+            <button class="mobile-nav-link mobile-dropdown-toggle w-full flex items-center justify-between">
+                <span class="text-primary-main dark:text-primary-main font-semibold">ABOUT</span>
+                <i class="fas fa-chevron-down mobile-chevron text-primary-main dark:text-primary-main transition-transform duration-200"></i>
+            </button>
+            <div class="mobile-dropdown-menu hidden">
+                <a href="history.html" class="mobile-sub-link">History</a>
+                <a href="people.html" class="mobile-sub-link">People</a>
+                <a href="geography.html" class="mobile-sub-link">Geography</a>
+                <a href="city-administration.html" class="mobile-sub-link">City Administration</a>
             </div>
         </div>
-        <div class="dropdown w-full text-center">
-            <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
-                GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
-            </a>
-            <div class="dropdown-menu">
-                <a href="mayor-details.html">Mayor</a>
-                <a href="cabinets.html">Cabinets</a>
-                <a href="structure.html">Structure</a>
-                <a href="offices.html">Offices</a>
+
+        <!-- GOVERNMENT dropdown -->
+        <div class="mobile-dropdown">
+            <button class="mobile-nav-link mobile-dropdown-toggle w-full flex items-center justify-between">
+                <span class="text-primary-main dark:text-primary-main font-semibold">GOVERNMENT</span>
+                <i class="fas fa-chevron-down mobile-chevron text-primary-main dark:text-primary-main transition-transform duration-200"></i>
+            </button>
+            <div class="mobile-dropdown-menu hidden">
+                <a href="mayor-details.html" class="mobile-sub-link">Mayor</a>
+                <a href="cabinets.html" class="mobile-sub-link">Cabinets</a>
+                <a href="structure.html" class="mobile-sub-link">Structure</a>
+                <a href="offices.html" class="mobile-sub-link">Offices</a>
             </div>
         </div>
-        <div class="dropdown w-full text-center">
-            <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
-                PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
-            </a>
-            <div class="dropdown-menu">
-                <a href="programs.html">Programs</a>
-                <a href="projects.html">Projects</a>
+
+        <!-- PROGRAM & PROJECT dropdown -->
+        <div class="mobile-dropdown">
+            <button class="mobile-nav-link mobile-dropdown-toggle w-full flex items-center justify-between">
+                <span class="text-primary-main dark:text-primary-main font-semibold">PROGRAM & PROJECT</span>
+                <i class="fas fa-chevron-down mobile-chevron text-primary-main dark:text-primary-main transition-transform duration-200"></i>
+            </button>
+            <div class="mobile-dropdown-menu hidden">
+                <a href="programs.html" class="mobile-sub-link">Programs</a>
+                <a href="projects.html" class="mobile-sub-link">Projects</a>
             </div>
         </div>
     </nav>

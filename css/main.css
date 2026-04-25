@@ -138,22 +138,73 @@ main {
     display: block;
 }
 
-/* Mobile menu specific dropdown styles */
-#mobile-menu .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    padding-left: 1rem;
-    margin-top: 0.5rem;
+/* (mobile dropdown overrides handled by .mobile-* classes above) */
+
+/* ── Mobile slide-down menu ── */
+
+/* Each top-level nav item row */
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0F4C81;
+    border-bottom: 1px solid #e9ecef;
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
 }
-#mobile-menu .dropdown-menu a {
-    padding: 0.5rem 1rem;
-    font-size: 1.5rem;
+.dark .mobile-nav-link {
+    color: #3b82f6;
+    border-bottom-color: #4a5568;
+}
+.mobile-nav-link:hover {
+    background-color: #f0f7ff;
+}
+.dark .mobile-nav-link:hover {
+    background-color: rgba(59, 130, 246, 0.08);
+}
+
+/* Chevron rotation when open */
+.mobile-dropdown.open .mobile-chevron {
+    transform: rotate(180deg);
+}
+
+/* Sub-items container */
+.mobile-dropdown-menu {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+}
+.dark .mobile-dropdown-menu {
+    background-color: #1e2a3a;
+    border-bottom-color: #4a5568;
+}
+
+/* Individual sub-links */
+.mobile-sub-link {
+    display: block;
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+    color: #343a40;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f3f5;
+    transition: background-color 0.15s;
+}
+.dark .mobile-sub-link {
+    color: #e2e8f0;
+    border-bottom-color: #2d3748;
+}
+.mobile-sub-link:last-child {
+    border-bottom: none;
+}
+.mobile-sub-link:hover {
+    background-color: #f0f7ff;
     color: #0F4C81;
 }
-.dark #mobile-menu .dropdown-menu a {
+.dark .mobile-sub-link:hover {
+    background-color: rgba(59, 130, 246, 0.1);
     color: #3b82f6;
 }
 
