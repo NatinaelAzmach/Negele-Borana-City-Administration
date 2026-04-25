@@ -99,19 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const parent = toggle.closest('.mobile-dropdown');
-            const submenu = parent.querySelector('.mobile-dropdown-menu');
             const isOpen = parent.classList.contains('open');
 
             // Close all open mobile dropdowns first
             mobileMenu.querySelectorAll('.mobile-dropdown.open').forEach(d => {
                 d.classList.remove('open');
-                d.querySelector('.mobile-dropdown-menu').classList.add('hidden');
             });
 
             // Open the clicked one if it was closed
             if (!isOpen) {
                 parent.classList.add('open');
-                submenu.classList.remove('hidden');
             }
         });
     }
