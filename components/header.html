@@ -43,8 +43,9 @@
         </div>
     </nav>
 
-    <div class="flex items-center space-x-4">
-        <div class="relative">
+    <div class="flex items-center space-x-3">
+        <!-- Language selector: hidden on mobile, visible on desktop -->
+        <div class="relative hidden md:block">
             <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
                 <option>English</option>
                 <option>Afan Oromo</option>
@@ -108,6 +109,15 @@
                 <a href="programs.html" class="mobile-sub-link">Programs</a>
                 <a href="projects.html" class="mobile-sub-link">Projects</a>
             </div>
+        </div>
+
+        <!-- Language selector (mobile only) -->
+        <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-700">
+            <select class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                <option>English</option>
+                <option>Afan Oromo</option>
+                <option>Amharic</option>
+            </select>
         </div>
     </nav>
 </div>
