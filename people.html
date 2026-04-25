@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana - People</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-20">
+        <!-- People Section Content -->
+        <section class="py-12 px-6 bg-neutral-light dark:bg-gray-800 rounded-xl">
+            <h2 class="text-3xl font-light text-center mb-8 text-primary-main dark:text-primary-main">People & Demographics</h2>
+            <div class="max-w-4xl mx-auto content-text space-y-4">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <div class="md:w-1/2 flex-shrink-0">
+                        <img src="img/graph.png" alt="Demographics Chart" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                    <div class="md:w-1/2">
+                        <p>
+                            The 2007 national census reported a total population for Negele Borana of 35,264, comprising 18,351 men and 16,913 women.
+                        </p>
+                        <p>
+                            The religious demographic indicated that the majority of inhabitants are Muslim (54.89%), followed by Ethiopian Orthodox Christianity (34.25%), Protestantism (8.24%), and traditional beliefs (2.34%).
+                        </p>
+                        <p>
+                            For comparison, the 1994 national census recorded the town's total population as 23,997, with 12,036 men and 11,961 women.
+                        </p>
+                        <h3 class="text-xl font-light mt-6 mb-2 text-primary-main dark:text-primary-main">Population Trends</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>2007 Census: 35,264 (18,351 men, 16,913 women)</li>
+                            <li>1994 Census: 23,997 (12,036 men, 11,961 women)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana - Cabinets</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Cabinets Page Specific Styles */
+        .cabinet-layout {
+            display: flex;
+            flex-direction: column; /* Stack on mobile */
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .cabinet-layout {
+                flex-direction: row; /* Sidebar and content side-by-side on desktop */
+            }
+        }
+
+        .sidebar {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 300px; /* Max width for sidebar on larger screens */
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .dark .sidebar {
+            background-color: #2d3748;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: 500;
+        }
+        .sidebar-item:hover {
+            background-color: #f1f1f1;
+            color: #0F4C81;
+        }
+        .dark .sidebar-item:hover {
+            background-color: #4a5568;
+            color: #3b82f6;
+        }
+        .sidebar-item.active {
+            background-color: #0F4C81;
+            color: white;
+            font-weight: 600;
+        }
+        .dark .sidebar-item.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .employees-grid {
+            flex-grow: 1;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(1, 1fr); /* 1 column on mobile */
+            transition: opacity 0.3s ease-in-out; /* For smooth transitions between views */
+        }
+
+        @media (min-width: 640px) { /* Small screens (tablet) */
+            .employees-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+            }
+        }
+
+        @media (min-width: 1024px) { /* Large screens (desktop) */
+            .employees-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+            }
+        }
+
+        .employee-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left-width: 6px; /* For the color-coded border */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .dark .employee-card {
+            background-color: #2d3748;
+        }
+        .employee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .border-blue { border-color: #0F4C81; } /* Primary Blue */
+        .border-yellow { border-color: #FFD700; } /* Gold */
+
+        .employee-photo {
+            width: 96px; /* 24 * 4 = 96px */
+            height: 96px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1rem auto;
+            border: 3px solid #0F4C81; /* Blue border around photo */
+        }
+        .dark .employee-photo {
+            border-color: #3b82f6; /* Brighter blue for dark mode */
+        }
+        .employee-name {
+            font-size: 1.25rem; /* lg:text-xl */
+            font-weight: 700; /* bold */
+            color: #0F4C81; /* Primary blue for name */
+            margin-bottom: 0.25rem;
+        }
+        .dark .employee-name {
+            color: #3b82f6; /* Brighter blue for dark mode */
+        }
+        .employee-title {
+            font-size: 0.9rem; /* text-sm */
+            color: #4a5568; /* Darker gray for title */
+        }
+        .dark .employee-title {
+            color: #cbd5e0; /* Lighter gray for dark mode */
+        }
+    </style>
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-20">
+        <h1 class="text-4xl font-bold text-center mb-12 text-primary-main dark:text-primary-main">City Cabinets</h1>
+
+        <div class="cabinet-layout">
+            <!-- Left Sidebar Menu -->
+            <aside class="sidebar">
+                <h3 class="text-xl font-semibold mb-4 text-primary-main dark:text-primary-main">
+                    ANNOUNCEMENTS <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </h3>
+                <nav>
+                    <ul>
+                        <li class="sidebar-item active" data-category="ALL">SHOW ALL</li>
+                        <li class="sidebar-item" data-category="PUBLIC RELATION AND GOOD GOVERNANCE">PUBLIC RELATION AND GOOD GOVERNANCE</li>
+                        <li class="sidebar-item" data-category="ECONOMIC SECTORS">ECONOMIC SECTORS</li>
+                        <li class="sidebar-item" data-category="MUNICIPAL SERVICES">MUNICIPAL SERVICES</li>
+                        <li class="sidebar-item" data-category="SOCIAL SECTOR">SOCIAL SECTOR</li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area for Employee Cards -->
+            <section id="employees-display" class="employees-grid">
+                <!-- Employee cards will be dynamically inserted here -->
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cabinet Page Specific JavaScript
+            const employees = [
+                { name: "ABDO MOHAMED", title: "TVET Office Head", category: "ECONOMIC SECTORS", photo: "https://placehold.co/100x100/0F4C81/FFFFFF?text=AM" },
+                { name: "DINKU HUNDE", title: "Education Office Head", category: "SOCIAL SECTOR", photo: "https://placehold.co/100x100/FFD700/0F4C81?text=DH" },
+                { name: "KENENI HUSEN", title: "Women & Children Affairs Office Head", category: "SOCIAL SECTOR", photo: "https://placehold.co/100x100/0F4C81/FFFFFF?text=KH" },
+                { name: "MO'ATA ABDELA", title: "Sport Commission Office Head", category: "SOCIAL SECTOR", photo: "https://placehold.co/100x100/FFD700/0F4C81?text=MA" },
+                { name: "FATUMA ALI", title: "Public Relations Officer", category: "PUBLIC RELATION AND GOOD GOVERNANCE", photo: "https://placehold.co/100x100/0F4C81/FFFFFF?text=FA" },
+                { name: "SAMUEL GEBRE", title: "Urban Planning Head", category: "MUNICIPAL SERVICES", photo: "https://placehold.co/100x100/FFD700/0F4C81?text=SG" },
+                { name: "CHALTU LEMMA", title: "Health Bureau Head", category: "SOCIAL SECTOR", photo: "https://placehold.co/100x100/0F4C81/FFFFFF?text=CL" },
+                { name: "KEDIR AHMED", title: "Finance Department Head", category: "ECONOMIC SECTORS", photo: "https://placehold.co/100x100/FFD700/0F4C81?text=KA" },
+                { name: "AYELE BEKELE", title: "Water & Sewerage Authority Head", category: "MUNICIPAL SERVICES", photo: "https://placehold.co/100x100/0F4C81/FFFFFF?text=AB" },
+                { name: "SARA MOHAMMED", title: "Culture & Tourism Office Head", category: "PUBLIC RELATION AND GOOD GOVERNANCE", photo: "https://placehold.co/100x100/FFD700/0F4C81?text=SM" }
+            ];
+
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const employeesDisplay = document.getElementById('employees-display');
+
+            function renderEmployees(category) {
+                employeesDisplay.style.opacity = 0; // Start fade out
+                setTimeout(() => {
+                    employeesDisplay.innerHTML = ''; // Clear current cards
+                    const filteredEmployees = category === 'ALL' ? employees : employees.filter(emp => emp.category === category);
+                    
+                    filteredEmployees.forEach((employee, index) => {
+                        const card = document.createElement('div');
+                        const borderColorClass = (index % 2 === 0) ? 'border-blue' : 'border-yellow'; // Alternating colors
+                        card.className = `employee-card ${borderColorClass}`;
+                        card.innerHTML = `
+                            <img src="${employee.photo}" alt="${employee.name}" class="employee-photo">
+                            <h4 class="employee-name">${employee.name}</h4>
+                            <p class="employee-title">${employee.title}</p>
+                        `;
+                        employeesDisplay.appendChild(card);
+                    });
+                    employeesDisplay.style.opacity = 1; // End fade in
+                }, 300); // Match this duration with the CSS transition duration
+            }
+
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    sidebarItems.forEach(si => si.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    // Render employees for the selected category
+                    renderEmployees(this.dataset.category);
+                });
+            });
+
+            // Initial render on page load
+            renderEmployees('ALL');
+        });
+    </script>
+</body>
+</html>

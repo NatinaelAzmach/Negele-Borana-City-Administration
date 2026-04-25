@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana - Geography</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-20">
+        <!-- Geography Section Content -->
+        <section class="py-12 px-6 bg-neutral-light dark:bg-gray-800 rounded-xl">
+            <h2 class="text-3xl font-light text-center mb-8 text-primary-main dark:text-primary-main">Geography & Climate</h2>
+            <div class="max-w-4xl mx-auto text-gray-900 dark:text-gray-300 space-y-4">
+                <p>
+                    Negele Borana experiences an altitude-moderated hot semi-arid climate (Köppen BSh), which is more akin to Kenya's climate than that of northern Ethiopia.
+                </p>
+                <p>
+                    The town has two short wet seasons, occurring in April-May and October-November. These four months contribute significantly to the annual rainfall, accounting for 445 millimeters (17.52 inches) out of a total of 550 millimeters (21.65 inches).
+                </p>
+                <p>
+                    Temperatures in Negele Borana are notably milder than typically found in hot semi-arid climates. Afternoons are consistently very warm, while mornings remain comfortable throughout the year. In fact, Negele Borana is just $1^\circ C$ ($1.8^\circ F$) away from being classified as a cool semi-arid climate (BSk).
+                </p>
+                <h3 class="text-xl font-light mt-8 mb-4 text-primary-main dark:text-primary-main">Climate Data (Interactive)</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white dark:bg-gray-700 rounded-lg shadow overflow-hidden">
+                        <thead class="bg-gray-100 dark:bg-gray-600">
+                            <tr>
+                                <th class="py-2 px-4 border-b dark:border-gray-500 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Month</th>
+                                <th class="py-2 px-4 border-b dark:border-gray-500 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Avg. High ($^\circ C$)</th>
+                                <th class="py-2 px-4 border-b dark:border-gray-500 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Avg. Low ($^\circ C$)</th>
+                                <th class="py-2 px-4 border-b dark:border-gray-500 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Rainfall (mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Click on a row to highlight it!</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Climate Data for Geography Section (Interactive Table)
+            const climateData = [
+                { month: 'Jan', high: 28, low: 14, rainfall: 5 },
+                { month: 'Feb', high: 29, low: 15, rainfall: 7 },
+                { month: 'Mar', high: 30, low: 16, rainfall: 20 },
+                { month: 'Apr', high: 29, low: 17, rainfall: 120 },
+                { month: 'May', high: 28, low: 16, rainfall: 100 },
+                { month: 'Jun', high: 27, low: 15, rainfall: 30 },
+                { month: 'Jul', high: 26, low: 14, rainfall: 25 },
+                { month: 'Aug', high: 26, low: 14, rainfall: 30 },
+                { month: 'Sep', high: 27, low: 15, rainfall: 40 },
+                { month: 'Oct', high: 28, low: 15, rainfall: 150 },
+                { month: 'Nov', high: 28, low: 14, rainfall: 75 },
+                { month: 'Dec', high: 27, low: 13, rainfall: 8 }
+            ];
+
+            const climateTableBody = document.querySelector('table tbody');
+            if (climateTableBody) {
+                climateData.forEach(data => {
+                    const row = climateTableBody.insertRow();
+                    row.classList.add('hover:bg-gray-50', 'dark:hover:bg-gray-600', 'cursor-pointer');
+                    row.innerHTML = `
+                        <td class="py-2 px-4 border-b dark:border-gray-500 text-sm text-gray-900 dark:text-gray-100">${data.month}</td>
+                        <td class="py-2 px-4 border-b dark:border-gray-500 text-sm text-gray-900 dark:text-gray-100">${data.high}</td>
+                        <td class="py-2 px-4 border-b dark:border-gray-500 text-sm text-gray-900 dark:text-gray-100">${data.low}</td>
+                        <td class="py-2 px-4 border-b dark:border-gray-500 text-sm text-gray-900 dark:text-gray-100">${data.rainfall}</td>
+                    `;
+                    row.addEventListener('click', () => {
+                        // Remove highlight from other rows
+                        climateTableBody.querySelectorAll('tr').forEach(r => r.classList.remove('bg-blue-100', 'dark:bg-blue-800'));
+                        // Add highlight to clicked row
+                        row.classList.add('bg-blue-100', 'dark:bg-blue-800');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

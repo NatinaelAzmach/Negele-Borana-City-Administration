@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana - History</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-20">
+        <!-- History Section Content -->
+        <section class="py-12 px-6 bg-neutral-light dark:bg-gray-800 rounded-xl">
+            <h2 class="text-3xl font-light text-center mb-8 text-primary-main dark:text-primary-main">History of Negele Borana</h2>
+            <div class="max-w-4xl mx-auto text-gray-900 dark:text-gray-300 space-y-4">
+                <p>
+                    The town of Negele Borana was founded in the early 20th century. In 1934, it was described as an "Amhara new settlement and fortress with palisades," serving as the "farthest outpost towards Jubbaland."
+                </p>
+                <p>
+                    During the Second Italo-Ethiopian War in 1935, Negele Borana was the headquarters of Ras Desta Damtew and faced frequent Italian bombing raids. General Rodolfo Graziani's forces captured the town after their victory at the Battle of Ganale Dorya.
+                </p>
+                <p>
+                    British forces occupied the town on March 27, 1941, finding it abandoned and looted by the neighboring Borena Oromo. By 1943, David Buxton noted an Ethiopian Army battalion garrisoned in the "half-built Italian settlement."
+                </p>
+                <p>
+                    The Norwegian Lutheran Mission established a hospital in Negele Borana in 1949, operating it until 1956 when the Ministry of Public Health took over. In 1958, Negele Borana was recognized as a First Class Township.
+                </p>
+                <p>
+                    On January 12, 1974, soldiers stationed at the Military Base protested substandard living conditions, leading to the brief detention of Lieutenant-General Deresse Dubale. This incident, hushed up at the time, highlighted the severe conditions in remote garrisons.
+                </p>
+                <p>
+                    During the Ogaden War in August 1977, the Somali Army repeatedly attempted to capture Negele Borana, but the local garrison successfully defended the town.
+                </p>
+                <p>
+                    More recently, around January 2010, human rights activists reported numerous detentions in Negele Borana, primarily of individuals associated with the Oromo People's Congress. These arrests were reportedly linked to protests against mining activities in the region, which authorities attributed to opposition groups.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

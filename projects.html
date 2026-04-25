@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana - Projects</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Programs/Projects Page Specific Styles */
+        .card-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(1, 1fr); /* 1 column on mobile */
+        }
+
+        @media (min-width: 640px) { /* Small screens (tablet) */
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+            }
+        }
+
+        @media (min-width: 1024px) { /* Large screens (desktop) */
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+            }
+        }
+
+        .program-card, .project-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .program-card, .dark .project-card {
+            background-color: #2d3748;
+        }
+        .program-card:hover, .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1; /* Allows content to expand */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Pushes button to bottom */
+        }
+
+        .card-title {
+            font-size: 1.25rem; /* lg:text-xl */
+            font-weight: 700; /* bold */
+            color: #0F4C81; /* Primary blue for title */
+            margin-bottom: 0.5rem;
+        }
+        .dark .card-title {
+            color: #3b82f6; /* Brighter blue for dark mode */
+        }
+
+        .card-description {
+            font-size: 0.9rem; /* text-sm */
+            color: #4a5568; /* Darker gray for description */
+            margin-bottom: 1rem;
+            flex-grow: 1; /* Allows description to take available space */
+        }
+        .dark .card-description {
+            color: #cbd5e0; /* Lighter gray for dark mode */
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #0F4C81;
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.2s;
+            align-self: flex-start; /* Align button to start of flex container */
+        }
+        .dark .card-button {
+            background-color: #3b82f6;
+        }
+        .card-button:hover {
+            background-color: #0a3a60; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+        .dark .card-button:hover {
+            background-color: #2a62c6; /* Darker brighter blue on hover */
+        }
+    </style>
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 pt-32 pb-20">
+        <h1 class="text-4xl font-bold text-center mb-12 text-primary-main dark:text-primary-main">City Projects</h1>
+
+        <section id="projects-display" class="card-grid">
+            <!-- Project cards will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Projects Data
+            const projects = [
+                { 
+                    title: "New Central Market Construction", 
+                    description: "Development of a modern, multi-functional central market to boost local commerce and provide a vibrant public space.", 
+                    image: "https://placehold.co/400x200/FFD700/0F4C81?text=Market+Project",
+                    link: "#"
+                },
+                { 
+                    title: "Water Supply Expansion Project", 
+                    description: "Expanding the city's water infrastructure to ensure reliable access to clean and safe drinking water for all residents.", 
+                    image: "https://placehold.co/400x200/0F4C81/FFFFFF?text=Water+Project",
+                    link: "#"
+                },
+                { 
+                    title: "Road Network Upgrade", 
+                    description: "Comprehensive renovation and expansion of key road networks to improve connectivity, reduce traffic congestion, and enhance urban mobility.", 
+                    image: "https://placehold.co/400x200/38A169/FFFFFF?text=Road+Project",
+                    link: "#"
+                },
+                { 
+                    title: "Public Library & Community Center", 
+                    description: "Construction of a state-of-the-art public library and community center to serve as an educational and social hub for all ages.", 
+                    image: "https://placehold.co/400x200/800080/FFFFFF?text=Library+Project",
+                    link: "#"
+                },
+                { 
+                    title: "Affordable Housing Initiative", 
+                    description: "A project to develop and provide affordable housing units to low-income families, ensuring equitable access to quality living spaces.", 
+                    image: "https://placehold.co/400x200/FF6347/FFFFFF?text=Housing+Project",
+                    link: "#"
+                }
+            ];
+
+            const projectsDisplay = document.getElementById('projects-display');
+
+            function renderProjects() {
+                projectsDisplay.innerHTML = ''; // Clear current cards
+                projects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = `project-card`;
+                    card.innerHTML = `
+                        <img src="${project.image}" alt="${project.title}" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-title">${project.title}</h3>
+                            <p class="card-description content-text">${project.description}</p>
+                            <a href="${project.link}" class="card-button">View Details</a>
+                        </div>
+                    `;
+                    projectsDisplay.appendChild(card);
+                });
+            }
+
+            // Initial render on page load
+            renderProjects();
+        });
+    </script>
+</body>
+</html>

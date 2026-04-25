@@ -1,0 +1,260 @@
+/* Negele Borana City Administration - Main Stylesheet */
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    scroll-behavior: smooth;
+}
+
+/* Modern Color Scheme */
+/* Light Mode */
+.light body {
+    background-color: #f8f9fa; /* Very light gray */
+    color: #343a40; /* Dark gray for text */
+}
+.light .bg-primary-main { background-color: #0F4C81; } /* Deep Blue */
+.light .text-primary-main { color: #0F4C81; }
+.light .border-primary-main { border-color: #0F4C81; }
+.light .bg-secondary-accent { background-color: #38A169; } /* Emerald Green */
+.light .text-secondary-accent { color: #38A169; }
+.light .bg-tertiary-pop { background-color: #FFD700; } /* Gold for pop */
+.light .text-tertiary-pop { color: #FFD700; }
+.light .bg-neutral-light { background-color: #ffffff; }
+.light .border-neutral-light { border-color: #e9ecef; } /* Lighter border */
+.light .content-text { color: #212529; }
+.light .nav-link-bold { font-weight: 600; }
+
+/* Dark Mode */
+.dark body {
+    background-color: #1a202c; /* Dark slate background */
+    color: #e2e8f0; /* Light gray for text */
+}
+.dark .bg-primary-main { background-color: #3b82f6; } /* Brighter Blue */
+.dark .text-primary-main { color: #3b82f6; }
+.dark .border-primary-main { border-color: #3b82f6; }
+.dark .bg-secondary-accent { background-color: #48bb78; } /* Lighter Emerald Green */
+.dark .text-secondary-accent { color: #48bb78; }
+.dark .bg-tertiary-pop { background-color: #FFEA00; } /* Slightly brighter Gold for pop */
+.dark .text-tertiary-pop { color: #FFEA00; }
+.dark .bg-neutral-light { background-color: #2d3748; } /* Darker background for cards/modals */
+.dark .border-neutral-light { border-color: #4a5568; } /* Darker border */
+.dark .content-text { color: #e2e8f0; }
+.dark .nav-link-bold { font-weight: 400; }
+
+/* Header with overlay effect */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+}
+.dark header {
+    background-color: rgba(26, 32, 44, 0.9);
+}
+
+/* Main content padding to account for fixed header */
+main {
+    padding-top: 80px;
+}
+.hero-section + main {
+    padding-top: 0; /* Index page with full-screen hero doesn't need top padding on main */
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    animation: slideIn 0.8s ease-out forwards;
+}
+
+/* Delayed animations */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Dropdown menu styles */
+.dropdown {
+    position: relative;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 0;
+    border: 1px solid #e9ecef;
+}
+.dark .dropdown-menu {
+    background-color: #2d3748;
+    border-color: #4a5568;
+}
+.dropdown-menu a {
+    color: #343a40;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+.dark .dropdown-menu a {
+    color: #e2e8f0;
+}
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+.dark .dropdown-menu a:hover {
+    background-color: #4a5568;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown.active .dropdown-menu {
+    display: block;
+}
+
+/* Mobile menu specific dropdown styles */
+#mobile-menu .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+}
+#mobile-menu .dropdown-menu a {
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    color: #0F4C81;
+}
+.dark #mobile-menu .dropdown-menu a {
+    color: #3b82f6;
+}
+
+/* Cards & Buttons */
+.simple-card {
+    background-color: transparent;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.dark .simple-card {
+    border-color: #4a5568;
+}
+.simple-card:hover {
+    transform: translateY(-5px);
+    border-color: #0F4C81;
+    background-color: rgba(15, 76, 129, 0.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.dark .simple-card:hover {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.clean-btn {
+    background-color: transparent;
+    border: 1px solid #0F4C81;
+    color: #0F4C81;
+    transition: all 0.3s;
+    display: inline-block;
+}
+.dark .clean-btn {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+.clean-btn:hover {
+    background-color: #0F4C81;
+    color: white;
+    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.3);
+    transform: scale(1.05);
+}
+.dark .clean-btn:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Scroll to Top */
+#scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #0F4C81;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 100;
+}
+.dark #scroll-top {
+    background-color: #3b82f6;
+}
+#scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+#scroll-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Icon Container Descriptions */
+.icon-container {
+    position: relative;
+}
+.icon-description {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 10;
+}
+.icon-container:hover .icon-description {
+    opacity: 1;
+}
+.dark .icon-description {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+}

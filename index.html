@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Negele Borana City Administration</title>
+    <!-- Dark Mode Initializer -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Oswald for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Hero section - now covers full viewport height */
+        .hero-section {
+            height: 100vh; /* Full viewport height */
+            min-height: 500px; /* Minimum height for smaller screens */
+            position: relative; /* Needed for absolute positioning of slider and content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Ensure images don't overflow */
+        }
+
+        /* Animation for the main heading in hero section */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-5px);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-title-animation {
+            animation: popIn 0.8s ease-out forwards;
+        }
+
+        /* Image Slider Specific Styles */
+        .image-slider-container {
+            position: absolute; /* Changed to absolute to cover full hero section */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure image covers the container */
+            overflow: hidden;
+        }
+        .image-slider-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+        }
+        .image-slider-container img.active {
+            opacity: 1;
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            transition: background-color 0.3s;
+        }
+        .slider-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .slider-arrow.left { left: 10px; }
+        .slider-arrow.right { right: 10px; }
+
+        /* City at a Glance section - new styling */
+        .city-stats-banner {
+            background-color: #0F4C81; /* Primary blue background */
+            color: white;
+            padding: 2rem 1rem; /* Adjust padding */
+            text-align: center;
+            position: relative; /* To position it right below hero */
+            z-index: 10; /* Ensure it's above other content if needed */
+            margin-top: -1px; /* To visually connect with hero, adjust as needed */
+        }
+        .dark .city-stats-banner {
+            background-color: #3b82f6; /* Brighter blue for dark mode */
+        }
+        .city-stats-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .city-stats-item .icon {
+            font-size: 2.5rem; /* Larger icon size */
+            margin-bottom: 0.5rem;
+            color: #FFD700; /* Gold for light mode */
+        }
+        .dark .city-stats-item .icon {
+            color: #FFEA00; /* Slightly brighter Gold for dark mode */
+        }
+
+        .city-stats-item .value {
+            font-size: 2.25rem; /* Larger value font size */
+            font-weight: 700;
+            line-height: 1; /* Adjust line height for tight spacing */
+        }
+        .city-stats-item .label {
+            font-size: 0.9rem; /* Smaller label font size */
+            opacity: 0.9;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 70vh; /* Adjust hero height for mobile */
+                min-height: 400px;
+            }
+            .hero-section h1 {
+                font-size: 3rem; /* Smaller font for mobile heading */
+            }
+            .hero-section p {
+                font-size: 1rem; /* Smaller font for mobile paragraph */
+            }
+            .clean-btn {
+                width: 100%; /* Full width buttons on mobile */
+                text-align: center;
+            }
+            .city-stats-banner .grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-f8f9fa text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+
+    <!-- Header (Restored for local server compatibility) -->
+    <header class="py-4 px-6 md:px-12 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <img src="img/logo.png" alt="Negele Borana Logo" class="h-16 w-auto rounded-full object-cover">
+            <div class="text-xl font-bold">Negele Borana</div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200">
+                HOME
+            </a>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="text-gray-700 hover:text-primary-main dark:text-gray-300 dark:hover:text-primary-main transition-colors duration-200 dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-xs ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-main dark:text-gray-300">
+                    <option>English</option>
+                    <option>Afan Oromo</option>
+                    <option>Amharic</option>
+                </select>
+            </div>
+            <button id="night-mode-toggle" class="text-gray-700 dark:text-gray-300">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-light dark:bg-gray-900 z-40 hidden flex flex-col items-center justify-center">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col items-center space-y-8 w-full">
+            <a href="index.html" class="text-2xl text-primary-main dark:text-primary-main">HOME</a>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    ABOUT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="history.html">History</a>
+                    <a href="people.html">People</a>
+                    <a href="geography.html">Geography</a>
+                    <a href="city-administration.html">City Administration</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    GOVERNMENT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="mayor-details.html">Mayor</a>
+                    <a href="cabinets.html">Cabinets</a>
+                    <a href="structure.html">Structure</a>
+                    <a href="offices.html">Offices</a>
+                </div>
+            </div>
+            <div class="dropdown w-full text-center">
+                <a href="#" class="text-2xl text-primary-main dark:text-primary-main dropdown-toggle">
+                    PROGRAM & PROJECT <i class="fas fa-chevron-down text-base ml-2"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="programs.html">Programs</a>
+                    <a href="projects.html">Projects</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div id="hero-image-slider" class="image-slider-container">
+                <img src="img/Screenshot 2025-07-06 174746.png" alt="Negele Borana City View 1" class="active">
+                <img src="img/Screenshot 2025-07-06 174919.png" alt="Negele Borana City View 2">
+                <img src="img/Screenshot 2025-07-06 174919.png" alt="Negele Borana City View 3">
+                <img src="img/Screenshot 2025-07-06 174746.png" alt="Negele Borana City View 4">
+            </div>
+            
+            <button id="slider-prev" class="slider-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <button id="slider-next" class="slider-arrow right"><i class="fas fa-chevron-right"></i></button>
+
+            <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 font-oswald hero-title-animation">WELCOME TO NEGELE BORANA</h1>
+                <p class="text-xl text-white opacity-90 mb-8 slide-in delay-100">A city built on heritage, growing with vision</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 slide-in delay-200">
+                    <a href="#services" class="clean-btn px-8 py-3 rounded-full">
+                        Explore Services
+                    </a>
+                    <a href="mayor-details.html" class="clean-btn px-8 py-3 rounded-full">
+                        Details
+                    </a>
+                </div>
+            </div>
+            
+            <a href="#content" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <!-- City Stats - Moved and restyled as a banner -->
+        <section class="city-stats-banner">
+            <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl">
+                <div class="city-stats-item">
+                    <div class="icon"><i class="fas fa-building"></i></div>
+                    <p class="value">1900</p>
+                    <p class="label">Established</p>
+                </div>
+                <div class="city-stats-item">
+                    <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+                    <p class="value">107<span class="text-sm">km²</span></p>
+                    <p class="label">Area</p>
+                </div>
+                <div class="city-stats-item">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <p class="value">200K</p>
+                    <p class="label">Population</p>
+                </div>
+                <div class="city-stats-item">
+                    <div class="icon"><i class="fas fa-mountain"></i></div>
+                    <p class="value">1001<span class="text-sm">m</span></p>
+                    <p class="label">Elevation</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="content" class="container mx-auto px-6 pt-32 pb-20">
+
+            <!-- Quick Services -->
+            <section id="services" class="mb-20">
+                <h2 class="text-2xl font-light text-center mb-12">City Services</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <!-- Healthcare -->
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group flex flex-col h-full">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Healthcare Services" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 bg-primary-main bg-opacity-10 text-primary-main rounded-full flex items-center justify-center text-lg mb-3">
+                                    <i class="fas fa-ambulance"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Healthcare</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Access local hospital information, clinic locations, and health guidelines.</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Education -->
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group flex flex-col h-full">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Education" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 bg-primary-main bg-opacity-10 text-primary-main rounded-full flex items-center justify-center text-lg mb-3">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Education</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Find schools, educational programs, and youth development resources.</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Public Safety -->
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group flex flex-col h-full">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="img/safety.png" alt="Public Safety" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 bg-primary-main bg-opacity-10 text-primary-main rounded-full flex items-center justify-center text-lg mb-3">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Public Safety</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Connect with local police, fire departments, and emergency services.</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Permits & Housing -->
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group flex flex-col h-full">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="Permits & Housing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="w-10 h-10 bg-primary-main bg-opacity-10 text-primary-main rounded-full flex items-center justify-center text-lg mb-3">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Permits & Housing</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Apply for building permits, business licenses, and housing support.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Mayor's Message -->
+            <section class="mb-20">
+                <div class="bg-neutral-light dark:bg-gray-800 rounded-xl p-8 md:p-12 max-w-5xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-2/5 mb-8 md:mb-0 md:pr-8">
+                            <div class="aspect-square overflow-hidden rounded-xl">
+                                <img src="img/mayor.png" alt="Mayor" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="md:w-3/5">
+                            <h3 class="text-xl font-light mb-2">Message from</h3>
+                            <h2 class="text-3xl font-light mb-4">Mayor Malicha Dika</h2>
+                            <p class="mb-6 text-gray-700 dark:text-gray-300">
+                                "Welcome to Negele Borana, where tradition meets progress. Our administration is committed to transparent governance and sustainable development for all citizens."
+                            </p>
+                            <a href="mayor-details.html" class="clean-btn px-6 py-2 rounded-full">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- News Section -->
+            <section class="mb-20">
+                <h2 class="text-2xl font-light text-center mb-12">Latest Updates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1174&amp;q=80" alt="Meeting" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-medium mb-2">Council Meeting Summary</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">June 15, 2026</p>
+                        </div>
+                    </a>
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1169&amp;q=80" alt="Construction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-medium mb-2">Road Construction Update</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">June 12, 2026</p>
+                        </div>
+                    </a>
+                    <a href="#" class="simple-card overflow-hidden rounded-xl group">
+                        <div class="aspect-video bg-neutral-light dark:bg-gray-700 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1112&amp;q=80" alt="Event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-medium mb-2">Cultural Festival Announcement</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">June 5, 2026</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact">
+                <h2 class="text-2xl font-light text-center mb-12">Contact Us</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="simple-card p-8 rounded-xl">
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-sm mb-1">Name</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 rounded-lg border border-neutral-light dark:border-gray-700 focus:outline-none focus:border-primary-main dark:bg-gray-800">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm mb-1">Email</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 rounded-lg border border-neutral-light dark:border-gray-700 focus:outline-none focus:border-primary-main dark:bg-gray-800">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="subject" class="block text-sm mb-1">Subject</label>
+                                    <select id="subject" class="w-full px-4 py-2 rounded-lg border border-neutral-light dark:border-gray-700 focus:outline-none focus:border-primary-main dark:bg-gray-800">
+                                        <option>General Inquiry</option>
+                                        <option>Service Request</option>
+                                        <option>Feedback</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="message" class="block text-sm mb-1">Message</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg border border-neutral-light dark:border-gray-700 focus:outline-none focus:border-primary-main dark:bg-gray-800"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="clean-btn px-6 py-3 rounded-full w-full md:w-auto">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Index-specific Image Slider
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroSlider = document.getElementById('hero-image-slider');
+            if (!heroSlider) return;
+
+            const slides = heroSlider.querySelectorAll('img');
+            const prevButton = document.getElementById('slider-prev');
+            const nextButton = document.getElementById('slider-next');
+            let currentSlide = 0;
+            let touchStartX = 0;
+            const minSwipeDistance = 50;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+
+            function goToPrevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function goToNextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            prevButton.addEventListener('click', goToPrevSlide);
+            nextButton.addEventListener('click', goToNextSlide);
+
+            heroSlider.addEventListener('touchstart', (e) => touchStartX = e.touches[0].clientX);
+            heroSlider.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diffX = touchEndX - touchStartX;
+                if (diffX > minSwipeDistance) goToPrevSlide();
+                else if (diffX < -minSwipeDistance) goToNextSlide();
+            });
+
+            setInterval(goToNextSlide, 5000);
+        });
+    </script>
+</body>
+</html>
